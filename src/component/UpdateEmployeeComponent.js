@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import EmployeeService from "../service/EmployeeService";
 
-export class AddEmployeeComponent extends Component {
+export class UpdateEmployeeComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: this.props.match.params.id,
       name: "",
       imagePath: "",
       gender: "male",
@@ -14,6 +15,21 @@ export class AddEmployeeComponent extends Component {
       department: "",
       notes: "",
     };
+  }
+
+  componentDidMount() {
+    EmployeeService.getEmployeeById(this.state.id).then((res) => {
+      let employee = res.data;
+      this.setState({
+        name: employee.name,
+        imagePath: employee.imagePath,
+        gender: employee.gender,
+        salary: employee.salary,
+        startDate: employee.startDate,
+        department: employee.department,
+        notes: employee.notes,
+      });
+    });
   }
 
   handleNameChange = (event) => {
@@ -54,16 +70,20 @@ export class AddEmployeeComponent extends Component {
 
   handleFormSubmit = (event) => {
     // alert(`${this.state.name} ${this.state.imagePath} ${this.state.gender}`)
-    EmployeeService.addEmployee(this.state)
+    EmployeeService.updateEmployee(this.state, this.state.id)
       .then((res) => {
-        console.log(res);
-        alert(res.data.message);
+        alert("Employee is updated successfully of Name : " + res.data.name);
+        this.props.history.push("/");
       })
       .catch((err) => {
         console.log(err);
         alert(err);
       });
     event.preventDefault();
+  };
+
+  handleCancelClick = () => {
+    this.props.history.push("/");
   };
 
   render() {
@@ -75,7 +95,7 @@ export class AddEmployeeComponent extends Component {
               className="card col-md-6 offset-md-3 offset-md-3"
               style={{ marginTop: "10px", marginBottom: "10px" }}
             >
-              <h3 className="text-center">Add Employee</h3>
+              <h3 className="text-center">Update Employee</h3>
               <div className="card-body">
                 <form onSubmit={this.handleFormSubmit}>
                   <div className="form-group">
@@ -144,7 +164,18 @@ export class AddEmployeeComponent extends Component {
                     />
                   </div>
 
-                  <button type="submit">Add Employee</button>
+                  <div className="form-group">
+                    <button className="btn btn-success" type="submit">
+                      Update Employee
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={this.handleCancelClick}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -155,4 +186,4 @@ export class AddEmployeeComponent extends Component {
   }
 }
 
-export default AddEmployeeComponent;
+export default UpdateEmployeeComponent;

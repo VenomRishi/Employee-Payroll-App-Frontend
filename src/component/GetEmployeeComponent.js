@@ -19,22 +19,16 @@ export class GetEmployeeComponent extends Component {
     });
   }
 
-  handleAddEmployeeClick = () => {
-    this.props.history.push("/add-employee");
-  };
+  
+  handleUpdateEmployeeClick(id) {
+    this.props.history.push(`/add-update-employee/${id}`)
+  }
+
 
   render() {
     return (
       <div className="container">
         <h2 className="text-center">Employee Payroll List</h2>
-        <div className="row">
-          <button
-            className="btn btn-primary"
-            onClick={this.handleAddEmployeeClick}
-          >
-            Add Employee
-          </button>
-        </div>
         <div className="row">
           <table className="table table-stripped table-bordered">
             <thead>
@@ -59,6 +53,16 @@ export class GetEmployeeComponent extends Component {
                   <td>{employee.startDate}</td>
                   <td>{employee.department}</td>
                   <td>{employee.notes}</td>
+                  <td>
+                  <button
+                      onClick={() =>
+                        this.handleUpdateEmployeeClick(employee.id)
+                      }
+                      className="btn btn-info"
+                    >
+                      Update
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

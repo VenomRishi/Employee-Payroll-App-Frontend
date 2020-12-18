@@ -15,7 +15,6 @@ function App() {
         <Switch>
           <Route path="/" exact component={GetEmployeeComponent}></Route>
           <Route path="/add-update-employee/:id" component={AddUpdateEmployeeComponent}></Route>
-          {/* <Route path="/update-employee/:id" component={UpdateEmployeeComponent}></Route> */}
         </Switch>
       </Router>
       <FooterComponent />
@@ -26,4 +25,4 @@ function App() {
 export default App;
 
 
-// http://localhost:3001/add-employee/-1
+// http://localhost:3001/add-employee/

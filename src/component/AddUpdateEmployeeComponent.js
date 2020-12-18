@@ -18,7 +18,7 @@ export class AddUpdateEmployeeComponent extends Component {
   }
 
   componentDidMount() {
-    if (this.state.id != -1) {
+    if (this.state.id !== 'add') {
       EmployeeService.getEmployeeById(this.state.id).then((res) => {
         let employee = res.data;
         this.setState({
@@ -35,7 +35,7 @@ export class AddUpdateEmployeeComponent extends Component {
   }
 
   getHeadingAccordingToComponent() {
-    if (this.state.id == -1) {
+    if (this.state.id === 'add') {
       return "Add Employee";
     } else {
       return "Update Employee";
@@ -86,7 +86,7 @@ export class AddUpdateEmployeeComponent extends Component {
 
   handleFormSubmit = (event) => {
     // alert(`${this.state.name} ${this.state.imagePath} ${this.state.gender}`)
-    if (this.state.id == -1) {
+    if (this.state.id === 'add') {
       EmployeeService.addEmployee(this.state)
         .then((res) => {
           this.showMessageAndRedirectToHome(res);

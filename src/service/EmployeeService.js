@@ -5,6 +5,7 @@ const ADD_EMPLOYEE_URL = "/employee/add";
 const GET_EMPLOYEES_URL = "/employee/get";
 const GET_EMPLOYEE_URL = "/employee/get/";
 const UPDATE_EMPLOYEE_URL = "/employee/update/";
+const DELETE_EMPLOYEE_URL = "/employee/delete/";
 
 class EmployeeService {
   getEmployees() {
@@ -19,8 +20,9 @@ class EmployeeService {
   updateEmployee(employee, employeeId) {
     return Axios.put(BASE_URL + UPDATE_EMPLOYEE_URL + employeeId, employee);
   }
+  deleteEmployee(employeeId) {
+    return Axios.delete(BASE_URL + DELETE_EMPLOYEE_URL + employeeId);
+  }
 }
 
 export default new EmployeeService();
-
-// http://localhost:8089/employee/get/2
